@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <title>KISAPINCHA - Login</title>
+ 
+    <link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="themes/icon.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/easyui-lang-es.js"></script>
+ <style>
+body {background-color: #0B4492;}
+ </style>
+
+</head>
+<body>
+<p></p>
+
+
+    <center>
+     
+    <img style="height:200px" src='img/logo2.png' />
+        <div id="p" class="easyui-panel" title="Ingreso al sistema" style="width:40%;height:auto;padding:10px;">
+            <form id="frmLogin" method="post" action="php/login_web.php">
+                <div style="margin-bottom:20px">
+                    <input value='' id="usuario" name ="usuario" class="easyui-textbox" prompt="Usuario" iconWidth="28" style="width:100%;height:34px;padding:10px;">
+                </div>
+                <div style="margin-bottom:20px">
+                    <input  value='' id="password"  name="password" class="easyui-passwordbox" prompt="Contraseña" iconWidth="28" style="width:100%;height:34px;padding:10px">
+                </div>
+            </form>
+
+            <div style="margin-bottom:20px">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">Login</a>
+            </div>
+        </div>
+    </center>
+
+<script>
+    $( document ).ready(function(){
+  
+}); 
+function submitForm(){
+     $('#frmLogin').form('submit');
+	 $('#frmLogin').form({
+       success:function(data){
+		   if( data.indexOf ("ERROR") !== -1 )
+            $.messager.alert('ERROR', data, 'error');
+		else
+		{
+			var obj = jQuery.parseJSON(data);			
+			var username = obj.usu_login;		 
+			sessionStorage.setItem("_user", username); 
+          
+		 	$(location).attr('href', 'index.php');
+	    }
+    }
+});
+
+}
+
+
+    </script>
+      
+</body>
+</html>
